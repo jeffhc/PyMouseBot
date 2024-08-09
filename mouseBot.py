@@ -9,7 +9,7 @@ import sys
 import pyautogui
 from datetime import datetime
 
-banner = """\
+banner = r"""\
  ______          ______                            ______             
 (_____ \        |  ___ \                          (____  \       _    
  _____) )   _   | | _ | | ___  _   _  ___  ____    ____)  ) ___ | |_  
@@ -40,12 +40,13 @@ def runMouse(time_to_stop, time_interval):
     while condition_to_run:
         # get current time
         current_time = time.localtime()
-        x=0
-        while(x<time_interval):
-            time.sleep(60)
-            x+=1
-        for i in range(0,200):
-            pyautogui.moveTo(i*4,0)
+        # x=0
+        # while(x<time_interval):
+        #     time.sleep(60)
+        #     x+=1
+        time.sleep(float(time_interval))
+        for i in range(0,10):
+            pyautogui.moveTo(i*4,0)        
         pyautogui.moveTo(1,1)
         for i in range(0,3):
             pyautogui.press("shift")
@@ -73,6 +74,8 @@ def main():
         args.time = time.strptime(f"{current_date} {args.time}", "%Y %m %d  %H:%M:%S")
     except ValueError:
         print(f"[-] The time you entered is incorrect. Try again in HH:MM:SS format")
+
+    args.interval = float(args.interval)
 
     try:
         runMouse(args.time, args.interval)
